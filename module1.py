@@ -32,7 +32,7 @@ def generate_note(name, fs, l):
     return y
 
 
-def lengths(bpm, tracks):
+def lengths(utwor, bpm, tracks):
     
     tracks = open(tracks).readlines()
     tracks = list(map(str.strip,tracks))
@@ -57,7 +57,7 @@ def lengths(bpm, tracks):
                 if actual[k] == '--':
                     result[j, k] = 0
                 else:
-                    sample = ''.join(['utwor/','sample', actual[k],'.wav'])
+                    sample = ''.join([utwor,'sample', actual[k],'.wav'])
                     
                     fs, y =   scipy.io.wavfile.read(sample)
                     result[j, k] = len(y)
@@ -85,12 +85,12 @@ def overall_bias(bpm, lista):
             w = x
     return w
     
-def create_music(bpm, paths):
+def create_music(utwor, bpm, paths):
     
     N = len(paths)  
     g = int(44100.0/(bpm/60.0))
     
-    l = [lengths(bpm, x) for x in [''.join(['utwor/','track',p]) for p in paths]]
+    l = [lengths(utwor, bpm, x) for x in [''.join([utwor,'track',p]) for p in paths]]
     
     main_lengths = []
     for i in range(len(paths)):
@@ -109,7 +109,7 @@ def create_music(bpm, paths):
     
     for i in range(len(paths)):
         
-        track_name = ''.join(['utwor/','track',paths[i]])
+        track_name = ''.join([utwor,'track',paths[i]])
         
         tracks = open(track_name).readlines()
         tracks = list(map(str.strip,tracks))
@@ -123,7 +123,7 @@ def create_music(bpm, paths):
                     result[pom[i] + j*g:pom[i] +j*g + g] = result[pom[i] +j*g:pom[i] +j*g + g] + generate_note(k, 44100, g)
                 else:
                     if k != '--':
-                        sample = ''.join(['utwor/','sample', k,'.wav'])
+                        sample = ''.join([utwor,'sample', k,'.wav'])
                         fs, y =   scipy.io.wavfile.read(sample)
                         y = np.mean(y, axis = 1)
                         y = y/32767
