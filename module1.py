@@ -3,11 +3,11 @@
 """
 Created on Fri Nov 27 23:01:08 2015
 
-@author: emilia
+@author: Emilia Momotko
 
 In this file the notes will be generated and the music based in them will be
 created. Additional samples will also be added in order to emphasize the beat.
-ENJOY!!!
+Hopy you will enjoy this beatbox!!
 """
 
 import numpy as np
